@@ -27,7 +27,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentPokemon((prev) => (prev + 1) % pokemonSilhouettes.length);
-    }, 3000);
+    }, 9000);
     return () => clearInterval(interval);
   }, []);
 
