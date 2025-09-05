@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import { TrendingUp, Trophy, BarChart3, Star, Zap, Shield } from "lucide-react";
 import StrongestByGen from "../components/StrongestByGen";
 import LegendsRank from "../components/LegendsRank";
+import StatsByType from "../components/StatsByType";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
@@ -63,8 +66,8 @@ export default function Dashboard() {
       <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
 
       <header className="relative z-10 pt-12 pb-8">
+        <button type="button" onClick={() => router.push("/")} className="mx-12 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Voltar</button>
         <div className="container mx-auto px-6 text-center">
-          {/* Logo melhorado */}
           <div className="group cursor-pointer inline-block mb-6">
             <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-red-500 via-white to-red-500 rounded-full shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 border-4 border-white/20">
               <div className="w-20 h-20 rounded-full relative border-4 border-gray-900 overflow-hidden shadow-xl">
@@ -78,7 +81,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="space-y-4 mb-12">
+          <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl font-bold animate-fade-in-up">
               <span className="bg-gradient-to-r from-yellow-300 via-red-500 to-pink-500 bg-clip-text text-transparent font-black tracking-wider drop-shadow-lg">
                 PokéHub
@@ -133,31 +136,8 @@ export default function Dashboard() {
                     
                     {index === 1 && <StrongestByGen />}
                     
-                    {index === 2 && (
-                      <div className="space-y-4">
-                        {[
-                          { type: "Dragão", avg: 600, icon: "🐉" },
-                          { type: "Psíquico", avg: 520, icon: "🔮" },
-                          { type: "Elétrico", avg: 480, icon: "⚡" }
-                        ].map((type, i) => (
-                          <div key={i} className="flex items-center justify-between p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg border hover:shadow-md transition-all">
-                            <div className="flex items-center space-x-3">
-                              <span className="text-2xl">{type.icon}</span>
-                              <span className="font-semibold">{type.type}</span>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-lg font-bold text-blue-600">{type.avg}</div>
-                              <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div 
-                                  className="h-full bg-gradient-to-r from-blue-400 to-purple-500 rounded-full transition-all duration-1000"
-                                  style={{ width: `${(type.avg / 720) * 100}%` }}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                    {index === 2 && <StatsByType />}
+                      
                   </div>
                 </div>
               </div>
