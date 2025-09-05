@@ -1,35 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Star, Zap, BarChart3, Gamepad2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentPokemon, setCurrentPokemon] = useState(0);
-
-  const pokemonSilhouettes = [
-    "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
-    "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
-    "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z",
-  ];
-
-  useEffect(() => {
-    const handleMouseMove = (e: any) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPokemon((prev) => (prev + 1) % pokemonSilhouettes.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   const menuOptions = [
     {
@@ -40,6 +17,7 @@ export default function Home() {
       hoverColor: "hover:from-yellow-300 hover:to-orange-400",
       bgAccent: "bg-yellow-100",
       delay: "0ms",
+      path: "/assistant",
     },
     {
       title: "Dashboard",
@@ -49,6 +27,7 @@ export default function Home() {
       hoverColor: "hover:from-blue-400 hover:to-purple-500",
       bgAccent: "bg-blue-100",
       delay: "150ms",
+      path: "/dashboard",
     },
     {
       title: "Jogo",
@@ -58,6 +37,7 @@ export default function Home() {
       hoverColor: "hover:from-green-300 hover:to-emerald-500",
       bgAccent: "bg-green-100",
       delay: "300ms",
+      path: "/game",
     },
   ];
 
@@ -135,6 +115,7 @@ export default function Home() {
                 key={option.title}
                 className={`group relative animate-fade-in-up`}
                 style={{ animationDelay: option.delay }}
+                onClick={() => router.push(option.path)}
               >
                 <div
                   className={`
@@ -181,16 +162,6 @@ export default function Home() {
               </div>
             );
           })}
-        </div>
-
-        <div className="fixed bottom-8 right-8 w-32 h-32 opacity-10 animate-bounce-slow">
-          <svg
-            viewBox="0 0 24 24"
-            className="w-full h-full text-white transform rotate-12"
-            style={{ animationDelay: "1s" }}
-          >
-            <path fill="currentColor" d={pokemonSilhouettes[currentPokemon]} />
-          </svg>
         </div>
       </main>
     </div>
