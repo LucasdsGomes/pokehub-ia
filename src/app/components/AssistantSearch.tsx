@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Mic } from "lucide-react";
 
 interface NamePokemon {
   name: string;
@@ -27,6 +28,33 @@ export default function AssistantSearch() {
     dark: "bg-gray-800",
     fairy: "bg-pink-300",
   };
+  let num = Math.floor(Math.random() * 1025) + 1;
+
+  const randomPokemon = async () => {
+    setLoading(true);
+    setError(null);
+    setNameResponse([]);
+    try {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${num}`
+      );
+      if (!response.ok) throw new Error("Pokémon não encontrado");
+      const data = await response.json();
+      setNameResponse([
+        {
+          name: data.name,
+          sprites: data.sprites,
+          types: data.types,
+          stats: data.stats,
+        },
+      ]);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const fetchName = async () => {
     setLoading(true);
@@ -56,27 +84,36 @@ export default function AssistantSearch() {
 
   return (
     <div className="w-full max-w-md text-center mx-auto mt-12">
-      <label className="block mb-3 text-base md:text-lg font-medium text-gray-900 dark:text-white">
-        Insira ou Fale o Nome do Pokémon
+      <label className="block mb-3 text-left text-base md:text-lg font-bold text-gray-900 dark:text-white">
+        Insira o nome do Pokémon ou o seu Nº da Pokedex 
       </label>
-      <input
-        type="text"
-        id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm md:text-base rounded-lg 
+      <div className="flex">
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm md:text-base rounded-lg 
                  focus:ring-blue-500 focus:border-blue-500 block w-full p-3 
                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Bulbasaur"
-      />
-      <button
-        type="button"
-        onClick={fetchName}
-        className="mt-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-      >
-        Buscar
-      </button>
+          placeholder="Bulbasaur"
+        />
+        <button
+          type="button"
+          onClick={fetchName}
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm mx-3 px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900"
+        >
+          Buscar
+        </button>
+        <button
+          type="button"
+          onClick={randomPokemon}
+          className="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
+        >
+          Pokémon Aleatório
+        </button>
+      </div>
 
       {loading && <p className="mt-4 text-gray-200">Carregando...</p>}
       {error && <p className="mt-4 text-red-500">{error}</p>}
