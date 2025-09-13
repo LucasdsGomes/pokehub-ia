@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import AssistantSearch from "../components/AssistantSearch";
+import PokeIA from "../components/PokeIA";
 
 export default function Assistant() {
   const router = useRouter();
@@ -81,6 +82,7 @@ export default function Assistant() {
 
       <main className="container mx-auto px-6 py-16 relative z-10 flex items-center justify-center">
         <AssistantSearch />
+        <PokeIA />
       </main>
     </div>
   );
