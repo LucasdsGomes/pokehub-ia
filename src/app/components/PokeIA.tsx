@@ -11,22 +11,6 @@ interface Message {
 }
 
 export default function PokeIA() {
-  const response_openai = () => {
-    try {
-      const response =  fetch("/api/test_openrouter", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: inputText }),
-      });
-      if (!response) throw new Error("Erro ao obter resposta do OpenRouter");
-    } catch (e: any) {
-      console.error(e);
-    } finally {
-      return "Carregando...";
-    }
-  }
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
