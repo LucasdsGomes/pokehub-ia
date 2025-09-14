@@ -23,6 +23,7 @@ export default function PokeIA() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -34,13 +35,14 @@ export default function PokeIA() {
 
   const generateBotResponse = async (userMessage: string) => {
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
       });
 
       const data = await response.json();
+      console.log(data)
       return data.choices?.[0]?.message?.content || "Desculpe, não entendi.";
     } catch (error) {
       console.error("Erro ao gerar resposta do bot:", error);

@@ -14,7 +14,8 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  
   const validatingForm = () => {
     if (!email || !password) {
       alert("Por favor, preencha todos os campos.");
@@ -35,7 +36,7 @@ export default function Login() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
