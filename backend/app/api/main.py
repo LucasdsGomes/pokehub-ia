@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from app.core.database import SessionLocal, Base, engine
-from app import models
+from app.models import user as models
 from app.core import schemas
 import os
 import requests
