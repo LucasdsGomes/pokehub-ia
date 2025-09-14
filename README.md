@@ -210,9 +210,9 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ## 📞 Contato
 
-- **GitHub**: [@seu-usuario](https://github.com/seu-usuario)
-- **LinkedIn**: [Seu Nome](https://linkedin.com/in/seu-perfil)
-- **Email**: seu.email@exemplo.com
+- **GitHub**: [@seu-usuario](https://github.com/LucasdsGomes)
+- **LinkedIn**: [Seu Nome](https://www.linkedin.com/in/lucasdsgomes/)
+- **Email**: dsglucass@gmail.com
 
 ---
 
