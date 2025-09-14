@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Mic } from "lucide-react";
-import PokeIA from "./PokeIA";
 
 interface NamePokemon {
   name: string;

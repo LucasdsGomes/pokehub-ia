@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import GameSetting from "../components/GameSetting";
 
 export default function Game() {
   const router = useRouter();
@@ -78,9 +79,7 @@ export default function Game() {
         </div>
       </header>
 
-      <main className="container mx-auto px-6 py-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
-      </main>
+      <GameSetting />
     </div>
   );
 }

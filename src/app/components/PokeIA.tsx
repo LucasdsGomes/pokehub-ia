@@ -33,21 +33,20 @@ export default function PokeIA() {
   }, [messages]);
 
   const generateBotResponse = async (userMessage: string) => {
-  try {
-    const response = await fetch("http://localhost:8000/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userMessage }),
-    });
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      });
 
-    const data = await response.json();
-    return data.choices?.[0]?.message?.content || "Desculpe, não entendi.";
-  } catch (error) {
-    console.error("Erro ao gerar resposta do bot:", error);
-    return "Ocorreu um erro ao tentar responder.";
-  }
-};
-
+      const data = await response.json();
+      return data.choices?.[0]?.message?.content || "Desculpe, não entendi.";
+    } catch (error) {
+      console.error("Erro ao gerar resposta do bot:", error);
+      return "Ocorreu um erro ao tentar responder.";
+    }
+  };
 
   const sendMessage = async () => {
     if (!inputText.trim()) return;

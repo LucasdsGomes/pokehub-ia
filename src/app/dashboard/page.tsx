@@ -11,10 +11,15 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
+   useEffect(() => {
+    const localUser = localStorage.getItem("user");
+    if (!localUser) {
+      router.push("/login");
+    } else {
+      const timer = setTimeout(() => setLoading(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [router]);
 
   const cardData = [
     {
@@ -61,6 +66,7 @@ export default function Dashboard() {
   }
 
   return (
+
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
       
       <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
